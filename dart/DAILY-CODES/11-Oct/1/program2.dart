@@ -1,0 +1,7 @@
+interface Test {
+
+}
+
+void main(){
+	
+}
