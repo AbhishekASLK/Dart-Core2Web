@@ -1,19 +1,17 @@
-// 1 2 3 4
-// 4 5 6 7
-// 7 8 9 10
-// 10 11 12 13
+// 1 2 3
+// 1 2
+// 1
 
 import 'dart:io';
 
 void main() {
-  int n = 4;
-  int x = 1;
+  int n = 3;
   for (int i = 1; i <= n; i++) {
-    for (int j = 1; j <= n; j++) {
+    int x = 1;
+    for (int j = 0; j < n - i + 1; j++) {
       stdout.write("$x ");
       x++;
     }
-    x--;
     print("");
   }
 }

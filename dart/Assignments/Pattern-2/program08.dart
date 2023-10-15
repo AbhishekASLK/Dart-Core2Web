@@ -1,22 +1,17 @@
+// 1 3 5
+// 7 9 11
+// 13 15 17
+
 import 'dart:io';
 
-void main(){
-
-	int n = 5;
-	int x = 5;
-	for(int i=1;i<=n;i++){
-		int temp = x;
-		for(int j=1;j<=i;j++){
-			stdout.write("$temp ");
-			temp+=i;
-		}
-		x+=1;
-		print("");
-	}
+void main() {
+  int n = 3;
+  int x = 1;
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      stdout.write("$x ");
+      x += 2;
+    }
+    print("");
+  }
 }
-
-// 5
-// 6 8
-// 7 10 13
-// 8 12 16 20
-// 9 14 19 24 29
