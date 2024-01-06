@@ -1,0 +1,280 @@
+mixin class Parent {
+  int x = 10;
+  static int y = 199;
+  void printData() {
+    print(x);
+    print(y);
+  }
+}
+
+class Child with Parent {
+  static int y = 200;
+  int x = 38;
+  void printData() {
+    print(super.x);
+    super.printData();
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.printData();
+}
+
+/*
+Output:
+10
+38
+199
+
+Explanation:
+
+printData() print parent x and the printData of parent which has child variables so output will be 38 and 199
+
+*/mixin class Parent {
+  int x = 10;
+  static int y = 199;
+  void printData() {
+    print(x);
+    print(y);
+  }
+}
+
+class Child implements Parent {
+  int x = 38;
+  void printData() {
+    print("Hii");
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.printData();
+}
+
+/*
+Output:
+Hii
+
+Explanation:
+
+printData() method will print Hii
+*/
+mixin class Parent {
+  Parent() {}
+  int x = 10;
+  static int y = 199;
+  void fun() {
+    print(x);
+    print(y);
+  }
+}
+
+class Child extends Parent {
+  int x = 38;
+  void gun() {
+    super.fun();
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.gun();
+}
+
+/*
+Output:
+Error: Can't use 'Parent' as a mixin because it has constructors.
+
+Explanatin:
+mixin don't have constructor
+
+*/mixin Test {
+  int x = 20;
+  void demo() {
+    print("In Test demo");
+  }
+
+  void fun2();
+}
+
+class Test2 with Test {
+  void demo() {
+    print("Id test2 demo");
+    super.demo();
+  }
+
+  void fun2() {
+    print("IN fun2");
+  }
+}
+
+void main() {
+  Test2 obj = new Test2();
+  obj.demo();
+}
+
+/*
+
+Output:
+Id test2 demo
+In Test demo
+
+Explanation:
+demo will be called of Test2 and super will call mixin demo.
+*/mixin Test {
+  void demo() {
+    print("In Test demo");
+  }
+}
+mixin Test2 {
+  void demo() {
+    print("in test2 demo");
+  }
+}
+
+class Test3 with Test, Test2 {
+  void demo() {
+    print("Id test3 demo");
+    super.demo();
+  }
+
+  void fun2() {
+    print("IN fun2");
+  }
+}
+
+void main() {
+  Test3 obj = Test3();
+  obj.demo();
+}
+
+/*
+Id test3 demo
+in test2 demo
+
+Explanation:
+demo() will be called of Test3 and the of Test2 because of right thumb  rule.
+*/class Demo2 {
+  Demo2() {
+    print("In demo2");
+  }
+}
+
+mixin Demo on Demo2 {
+  void fun() {
+    print("In fun");
+  }
+}
+
+class Test extends Demo2 with Demo {
+  Test() {
+    print("In test");
+  }
+}
+
+void main() {
+  Test obj = new Test();
+}
+
+/*
+Output:
+In demo2
+In test
+
+Explanation:
+Test parent class constructor will be called first and then child
+*/class Demo2 {
+  Demo2() {
+    print("In demo2");
+  }
+  void fun() {
+    print("IN fun Demo2");
+  }
+}
+
+mixin Demo on Demo2 {
+  void fun() {
+    print("In fun Demo");
+  }
+}
+
+class Test extends Demo2 with Demo {
+  Test() {
+    print("In test");
+  }
+}
+
+void main() {
+  Test obj = new Test();
+  obj.fun();
+}
+
+/*
+In demo2
+In test
+In fun Demo
+
+Explanation:
+
+Demo2 constructor is called first and then child and the fun of Demo mixin
+*/mixin Demo {
+  int x = 10;
+  void fun() {
+    print(x);
+  }
+}
+
+class Demo2 {
+  int x;
+  Demo2(this.x);
+}
+
+class Test extends Demo2 with Demo {
+  int x = 66;
+  Test() : super(7);
+  void fun() {
+    print(super.x);
+    super.fun();
+  }
+}
+
+void main() {
+  Demo obj = new Test();
+  obj.fun();
+}
+
+/*
+Output:
+10
+66
+
+Explanation:
+The value of x is inherited from mixin and the fun of Test and its variable will be print
+*/mixin Demo2 {
+  void fun2() {
+    print("IN demo2 fun");
+  }
+}
+mixin Demo on Demo2 {
+  void gun() {
+    print("In demo gun");
+  }
+}
+
+class Test3 with Demo2 {}
+
+void main() {
+  Test3 obj = new Test3();
+  obj.fun2();
+  obj.gun();
+}
+
+/*
+Output:
+Error: The method 'gun' isn't defined for the class 'Test3'.
+ - 'Test3' is from 'program9.dart'.
+
+Explanation:
+Test3 class don't have gun method. 
+*/

@@ -1,0 +1,286 @@
+class Company {
+  void companyName() {
+    print('Google');
+  }
+}
+
+class Employee extends Company {
+  void companyName() {
+    print('Apple');
+  }
+}
+
+void main() {
+  Company obj = Employee();
+  obj.companyName();
+}
+
+/*
+Output:
+Apple
+
+Explanation:
+Employee is child of Company so CompanyName is inherited.
+*/class Demo {
+  void fun();
+}
+
+class Demo1 implements Demo {
+  void fun() {}
+}
+
+void main() {
+  Demo obj = Demo1();
+}
+
+/*
+Output:
+Error: The non-abstract class 'Demo' is missing implementations for these members:
+
+Explanation:
+When there is method without body, class should be abstract.
+*/class Test {
+  double x = 10.7;
+  num fun() {
+    return x;
+  }
+}
+
+class Child extends Test {
+  int y = 9;
+  int fun() {
+    var x = super.fun();
+    print(x.runtimeType);
+    x = 10;
+    return 10;
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.fun();
+}
+
+/*
+Output:
+double
+
+Explanation:
+var is fixed after initialization so it won't change to int.
+*/class Test {
+  int? x;
+  Test(this.x);
+  void fun() {
+    this.x = 99;
+  }
+}
+
+class Test2 extends Test {
+  int? x;
+  Test2(this.x, int y) : super(y);
+  void fun() {
+    print(x);
+    super.fun();
+    print(x);
+    print(super.x);
+  }
+}
+
+void main() {
+  Test2 obj = Test2(4, 6);
+  obj.fun();
+}
+
+/*
+Output:
+4
+99
+6
+
+Explanation:
+The value of x will be the passed value and in super.fun() the value of x is change to 99 and then the value of super.x is 6 which is passed by super(y)
+*/class Test {
+  void fun() {
+    print("Test class");
+  }
+
+  static void gun() {
+    print("In static test");
+  }
+}
+
+class Test2 extends Test {
+  @override
+  int fun() {
+    super.fun();
+    return 10;
+  }
+
+  @override
+  void gun() {
+    print("In test2 gun");
+    super.gun();
+  }
+}
+
+void main() {
+  Test2 obj = Test2();
+  obj.fun();
+}
+
+/*
+Output:
+Error: Superclass has no method named 'gun'.
+    super.gun();
+
+Explanation:
+static method not take part in inheritance
+*/
+class Parent {
+  int x = 10;
+  Parent();
+  void getData() {
+    print(x);
+  }
+}
+
+class Child extends Parent {
+  double y = 10;
+  static String str = "core2web";
+  Child();
+  @override
+  int getData() {
+    print(y);
+    return 10;
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.getData();
+}
+
+/*
+Output:
+10.0
+
+Explanation:
+getDate print the y, and y is type of double so 10 to 10.0
+*/abstract class Parent {
+  int x;
+  int y = 7;
+  Parent(this.x);
+  void printData() {
+    print(x);
+  }
+}
+
+class Child extends Parent {
+  Child(int x, int y) : super(y);
+  int printData() {
+    print(x);
+    print(y);
+    return 3;
+  }
+}
+
+void main() {
+  Child obj = new Child(6, 7);
+  obj.printData();
+}
+
+/*
+Output:
+7
+7
+
+Explanation:
+printData() print the value of x which is taken by y and it is 7 and the value of y is also 7.
+*/class Test {
+  int x = 6;
+  Test();
+  void printData() {
+    print(x);
+  }
+}
+
+class Test2 {
+  int x = 9;
+  Test2() {
+    print("In test2");
+  }
+}
+
+class Child extends Test implements Test2 {
+  int x = 7;
+  void printData() {
+    print(super.x);
+    super.printData();
+  }
+}
+
+void main() {
+  Child obj = new Child();
+  obj.printData();
+}
+
+/*
+Output:
+6
+7
+
+Explanation:
+printData() calls super.x which is 6 and then it call parent printData which will print 7 because this content Child object address.
+*/abstract class Test {
+  void build();
+}
+
+class Test2 extends Test {
+  @override
+  void build() {
+    super.build();
+  }
+}
+
+
+/*
+Output:
+Error: Superclass has no method named 'build'.
+
+Explanation:
+we can't call build of Test because it doesn;t have body.
+*/abstract class Test {
+  int x;
+  Test(this.x) {
+    print("In constructor");
+  }
+  void fun() {
+    print("Fun");
+  }
+
+  void gun();
+}
+
+class Test2 extends Test {
+  Test2(super.x);
+  void gun() {
+    print("Inn gun");
+  }
+}
+
+void main() {
+  Test2 obj = new Test2(10);
+  obj.fun();
+  obj.gun();
+}
+
+
+/*
+Output:
+In constructor
+Fun
+Inn gun
+
+Explanation:
+Test2 call Test constructor then fun is called followed by gun
+*/

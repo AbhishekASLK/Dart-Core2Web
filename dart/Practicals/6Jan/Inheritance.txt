@@ -1,0 +1,289 @@
+class Test {
+  int x = 10;
+  Test(this.x);
+}
+
+class Test2 extends Test {
+  Test2(super.x);
+}
+
+void main() {
+  Test2 obj = Test2(10);
+  Test obj2 = Test(30);
+  obj.x = 19;
+  print(obj.x);
+  print(obj2.x);
+}
+
+/*
+Output: 
+19
+30
+
+Explanation:
+obj object has its x with value 10 passed by constructor, and then it is changed with value 19, so it will be reflected to obj object only and not obj2. so the value passed to obj2 is 30 so output will be 19 and 30.
+
+*/class Test {
+  int x = 30;
+}
+
+class Test2 extends Test {
+  int x;
+  Test2(this.x);
+  void gun() {
+    this.x = 8;
+  }
+
+  void fun() {
+    print(this.x);
+    print(super.x);
+  }
+}
+
+void main() {
+  Test2 obj = Test2(10);
+  obj.gun();
+  obj.fun();
+}
+
+/*
+Output: 
+8
+30
+
+Explanation:
+this.x is modified with value as 8 and super class x has value 10
+so the output is 8 and 30
+
+*/class Test {
+  int x = 30;
+  int y = 30;
+}
+
+class Test2 extends Test {
+  int x;
+  Test2(this.x);
+  void gun() {
+    this.x = 8;
+    this.y = 19;
+  }
+
+  void fun() {
+    print(super.x);
+    print(super.y);
+  }
+}
+
+void main() {
+  Test2 obj = Test2(10);
+  obj.gun();
+  obj.fun();
+}
+
+/*
+Output: 
+30
+19
+
+Explanation:
+Here child class gun method has super class y variable and he changed it so changes will be reflected to super class also.
+
+*/class Test {
+  int x;
+  int? y;
+  Test({required this.x, this.y});
+}
+
+class Test2 extends Test {
+  Test2(int x, int y) : super(x: 88) {
+    print(x);
+  }
+  void fun() {
+    print(this.x);
+    print(super.x);
+  }
+}
+
+void main() {
+  Test2 obj = Test2(19, 20);
+  obj.fun();
+}
+
+/*
+Output: 
+19
+88
+88
+
+Explanation:
+Here constructor is called and it prints the value of x, which is 19, and then fun is called which prints this.x which is 88 and super.x is also 88
+
+*/class Test {
+  int x = 20;
+  String str = "Core2web";
+  void parentMethod() {
+    print(x);
+    print(str);
+  }
+}
+
+class Test2 extends Test {
+  int x = 10;
+  String str = "Incubator";
+  void childMethod() {
+    print(x);
+    print(str);
+  }
+}
+
+void main() {
+  Test2 obj = new Test2();
+  obj.parentMethod();
+  obj.childMethod();
+}
+
+/*
+Output: 
+10
+Incubator
+10
+Incubator
+
+Explanation:
+parentMethod is inherited now it will access the this variables and so it will print the this variables.
+
+*/class Test {
+  int? x;
+  Test(this.x) {
+    print("In test");
+  }
+}
+
+class Test2 extends Test {
+  int? y;
+  Test2(this.y, int x) : super(x);
+}
+
+class Test3 extends Test2 {
+  int? z;
+  Test3(this.z, int y, int x) : super(y, x) {
+    print("In test3");
+  }
+}
+
+void main() {
+  Test3 obj = Test3(10, 20, 30);
+}
+
+/*
+Output: 
+In test
+In test3
+
+Explanation:
+Test3 constructor will call the Test2 and Test2 will call Test constructor so output will be this.
+
+*/class Demo1 {
+  int x;
+  Demo1(this.x);
+}
+
+class Demo2 extends Demo1 {
+  Demo2(super.x);
+  void fun() {
+    print(x);
+  }
+}
+
+void main() {
+  // Demo obj1 = Demo2();
+  Demo1 obj2 = Demo2(10);
+  obj2.fun();
+}
+
+/*
+Output: 
+program7.dart:16:8: Error: The method 'fun' isn't defined for the class 'Demo1'.
+ - 'Demo1' is from 'program7.dart'.
+Try correcting the name to the name of an existing method, or defining a method named 'fun'.
+  obj2.fun();
+
+Explanation:
+Here, parent class reference only call the child specific method.
+
+*/class Parent {
+  Parent() {
+    print("In Parent Constructor");
+  }
+}
+
+class Child extends Parent {
+  Child() {
+    super();
+    print("In Child Constructor");
+  }
+}
+
+void main() {
+  Child obj = new Child();
+}
+
+/*
+Output: 
+Error: Superclass has no method named 'call'.
+    super();
+
+Explanation:
+super() is used to call the object, so to call the object, it should have the call method, so here there is an error.
+
+*/
+class Test {
+  int? x;
+  static int y = 20;
+  Test.initX(this.x);
+  static void changeY() {
+    y = 30;
+  }
+}
+
+class Test2 extends Test {
+  Test2(int x) : super.initX(x);
+}
+
+void main() {
+  Test2 obj = Test2(40);
+  Test2.changeY();
+}
+
+/*
+Output: 
+Error: Member not found: 'Test2.changeY'.
+  Test2.changeY();
+
+Explanation:
+Static method in dart is not inherited to child.
+
+*/abstract class Demo1 {
+  factory Demo1() {
+    return Demo2();
+  }
+}
+
+class Demo2 implements Demo1 {
+  Demo2() {
+    print("Demo2");
+  }
+}
+
+void main() {
+  Demo1 obj = new Demo1();
+}
+
+/*
+Output: 
+Demo2
+
+Explanation:
+Demo1 returns the Demo2 constructor so output will be above.
+
+*/
